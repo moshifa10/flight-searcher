@@ -1,13 +1,26 @@
+import dotenv
+import os
+import requests
+
+dotenv.load_dotenv()
+
+
 #This file will need to use the DataManager,FlightSearch, FlightData, NotificationManager classes to achieve the program requirements.
 
 
-  
+endpoint_sheet = os.getenv(key="END_POINT")
+
+response = requests.get(url=endpoint_sheet)
+response.raise_for_status()
+print(response.text)
+
+
 
 
 '''
 APIs Required
 Google Sheet Data Management - https://sheety.co/
-Amadeus Flight Search API (Free Signup, Credit Card not required) - https://developers.amadeus.com/
+Amadeus Flight Search API (Free Signup, Credit Card not required) - 
 Amadeus Flight Offer Docs - https://developers.amadeus.com/self-service/category/flights/api-doc/flight-offers-search/api-reference
 Amadeus How to work with API keys and tokens guide - https://developers.amadeus.com/get-started/get-started-with-self-service-apis-335
 Amadeus Search for Airport Codes by City name - https://developers.amadeus.com/self-service/category/destination-experiences/api-doc/city-search/api-reference

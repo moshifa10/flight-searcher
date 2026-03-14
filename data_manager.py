@@ -18,6 +18,10 @@ class DataManager:
         return data["prices"]
     
     def put_data(self,body: dict, id: int):
+
+        '''
+            This function is responsible to put data to sheety and update.
+        '''
         body = {
             "price": body
         }

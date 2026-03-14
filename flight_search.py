@@ -6,6 +6,7 @@ class FlightSearch:
         '''
             This function is responsible for checking each an every data passed in has the iataCode available if not just pass in Testing for that data.
         '''
+        
         code = data["iataCode"]
         if len(code) == 0:
             data["iataCode"] = "Testing"

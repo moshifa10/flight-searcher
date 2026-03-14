@@ -15,25 +15,18 @@ data =  data_manager.DataManager(url=os.getenv(key="END_POINT"))
 sheety_data = data.get_data()
 updated_sheety_data= []
 
-for i in sheety_data:
-    search = flight_search.FlightSearch()
-    updated_sheety_data.append(search.put_testing(i))
+# for i in sheety_data:
+#     search = flight_search.FlightSearch()
+#     updated_sheety_data.append(search.put_testing(i))
 
 # pprint.pprint(updated_sheety_data)
 
 for i in updated_sheety_data:
-    body = i
-    id = i["id"]
-    print(body)
-    print(id)
-
     success = data.put_data(body=i, id=i["id"])
     print(success)
 
-
-
-
-
+search = flight_search.FlightSearch()
+print(search._get_new_token())
 
 
 

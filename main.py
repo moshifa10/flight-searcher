@@ -5,6 +5,7 @@ import data_manager
 import pprint
 import flight_search
 from flight_data import FlightData
+from exchange_rate import ExchangeRate
 dotenv.load_dotenv()
 
 
@@ -26,6 +27,8 @@ updated_sheety_data= []
 search = flight_search.FlightSearch()
 
 flight_data = FlightData()
+rate = ExchangeRate()
+rate.convert_zar_to_eur(10)
 
 # for i in sheety_data:
 #     if (i["iataCode"] == "" or i["iataCode"] == "Testing"):
@@ -34,6 +37,7 @@ flight_data = FlightData()
 #         i["iataCode"] = iata_code
 #         success = data.put_data(body=i, id=i["id"])
 #         print(iata_code)
+e
 
 for i in sheety_data:
     print(i)

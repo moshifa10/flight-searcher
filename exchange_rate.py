@@ -8,7 +8,6 @@ URL = "https://api.fastforex.io/fetch-one"
 
 class ExchangeRate:
     # This class is responsible to make zar to Uero convention
-
     def __init__(self):
         dotenv.load_dotenv()
         self._api_key = os.getenv(key="FOREX")

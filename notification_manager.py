@@ -35,5 +35,4 @@ class NotificationManager:
             connection.starttls()
             connection.login(sender_email, password)
             connection.send_message(msg)
-
             print("Successfully sent an email")

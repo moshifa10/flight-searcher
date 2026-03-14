@@ -7,7 +7,6 @@ class DataManager:
     def __init__(self, url):
         self.url = url
 
-
     def get_data(self) -> dict:
         '''
             This function is responsilble to get data and return that data

@@ -4,6 +4,7 @@ import requests
 import data_manager 
 import pprint
 import flight_search
+from flight_data import FlightData
 dotenv.load_dotenv()
 
 
@@ -24,6 +25,8 @@ updated_sheety_data= []
 
 search = flight_search.FlightSearch()
 
+flight_data = FlightData()
+
 # for i in sheety_data:
 #     if (i["iataCode"] == "" or i["iataCode"] == "Testing"):
 #         city = i["city"]
@@ -32,33 +35,33 @@ search = flight_search.FlightSearch()
 #         success = data.put_data(body=i, id=i["id"])
 #         print(iata_code)
 
-cheapest_fligths = search.find_cheapest_flights(
-                        origin_code="JNB",
-                        destination_code="CPT",
-                        departure_date="2026-05-20"
-                        )
+for i in sheety_data:
+    print(i)
+    print(f"Getting flights for {i["city"]} .....")
+    cheapest_fligths = flight_data.find_cheapest_flights(
+                            origin_code="JNB",
+                            destination_code=f"{i["iataCode"]}",
+                            departure_date="2026-05-20"
+                            )
+    
+    # validate
+    if cheapest_fligths == None:
+        print(f"No flight data")
+        print(f"{i["city"]}: N/A")
+        continue
+    validate = flight_data.validate_price(lower_price=i["lowestPrice"], actual_price=cheapest_fligths["price"]["grandTotal"])
 
-print(cheapest_fligths)
+    if validate:
+        print(f"{i["lowestPrice"]} vs {cheapest_fligths["price"]["grandTotal"]}")
+        print(f"{i["city"]}: {cheapest_fligths["price"]["grandTotal"]}")
+
+    else:
+        print(f"{i["lowestPrice"]} vs {cheapest_fligths["price"]["grandTotal"]}")
+        print(f"No flight data")
+        print(f"{i["city"]}: N/A")
+
+# print(cheapest_fligths)
 
 
 
 # print(search._token)
-
-
-
-
-'''
-APIs Required
-Google Sheet Data Management - https://sheety.co/
-Amadeus Flight Search API (Free Signup, Credit Card not required) - 
-Amadeus Flight Offer Docs - https://developers.amadeus.com/self-service/category/flights/api-doc/flight-offers-search/api-reference
-Amadeus How to work with API keys and tokens guide - https://developers.amadeus.com/get-started/get-started-with-self-service-apis-335
-Amadeus Search for Airport Codes by City name - https://developers.amadeus.com/self-service/category/destination-experiences/api-doc/city-search/api-reference
-Twilio Messaging (SMS or WhatsApp) API - https://www.twilio.com/docs/messaging/quickstart/python
-
-Program Requirements
-Use the Flight Search and Sheety API to populate your own copy of the Google Sheet with International Air Transport Association (IATA) codes for each city. Most of the cities in the sheet include multiple airports, you want the city code (not the airport code see here).
-Use the Flight Search API to check for the cheapest flights from tomorrow to 6 months later for all the cities in the Google Sheet.
-If the price is lower than the lowest price listed in the Google Sheet then send an SMS (or WhatsApp Message) to your own number using the Twilio API.
-The SMS should include the departure airport IATA code, destination airport IATA code, flight price and flight dates. e.g.
-'''

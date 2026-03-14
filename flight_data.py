@@ -10,6 +10,9 @@ class FlightData:
 
 
     def find_cheapest_flights(self, origin_code, destination_code, departure_date, adults=1):
+        '''
+            This function is responsible for finding destination and return all data
+        '''
         url = "https://test.api.amadeus.com/v2/shopping/flight-offers"
         params = {
             "originLocationCode": origin_code,
@@ -24,4 +27,46 @@ class FlightData:
         response = requests.get(url, headers=headers, params=params)
         response.raise_for_status()
         # print(response.text)
-        return response.json()
+
+        try:
+            response.json()["data"][0]
+
+        except IndexError:
+            return None
+        else:
+            return response.json()["data"][0]
+    
+    def find_one_cheap_flight(data: list[dict])-> float:
+        '''
+            will find the cheapest and print out the cheapest from the list of the flight
+        '''
+
+        # for now I will have the constant cheap = 70
+        cheap = 70
+        got = False
+
+        for flight in data:
+            total = round(float(flight["price"]["grandTotal"]), 2)
+
+            if cheap > total:
+                cheap = total
+                got = True
+
+        if got:
+            return cheap
+        
+        return False
+    
+    def validate_price(self, lower_price, actual_price) -> bool:
+        '''
+            If the price == data or < data[lowerstprice] -> True else False
+        '''
+
+        return False if float(actual_price) > float(lower_price) else True
+
+
+
+
+    
+        
+    

@@ -6,9 +6,10 @@ import pprint
 import flight_search
 from flight_data import FlightData
 from exchange_rate import ExchangeRate
+from notification_manager import NotificationManager
 dotenv.load_dotenv()
 
-
+STARTING_POINT = "JNB"
 
 #This file will need to use the DataManager,FlightSearch, FlightData, NotificationManager classes to achieve the program requirements.
 
@@ -28,6 +29,7 @@ search = flight_search.FlightSearch()
 
 flight_data = FlightData()
 rate = ExchangeRate()
+notification = NotificationManager()
 
 
 def iata_code():
@@ -44,7 +46,7 @@ for i in sheety_data:
     # print(i)
     print(f"Getting flights for {i["city"]} .....")
     cheapest_fligths = flight_data.find_cheapest_flights(
-                            origin_code="JNB",
+                            origin_code=STARTING_POINT,
                             destination_code=f"{i["iataCode"]}",
                             departure_date="2026-05-20"
                             )
@@ -61,7 +63,11 @@ for i in sheety_data:
 
     if validate:
         # print(f"R{i["lowestPrice"]} vs R{rate.convert_eur_to_zar(float(cheapest_fligths["price"]["grandTotal"]))}")
-        print(f"{i["city"]}: R{rate.convert_eur_to_zar(float(cheapest_fligths["price"]["grandTotal"]))}")
+        converted = rate.convert_eur_to_zar(float(cheapest_fligths["price"]["grandTotal"]))
+        inbound_date = cheapest_fligths["itineraries"]["segments"]["departure"]["at"].split("T")[0]
+        outbound_date = cheapest_fligths["itineraries"]["segments"]["arrival"]["at"].split("T")[0]
+        print(f"{i["city"]}: R{converted}")
+        notification.send_email(price=converted, departure=STARTING_POINT, arrival=i["iataCode"], inbound_date=inbound_date, outbound_date=outbound_date )
 
     else:
         # print(f"R{i["lowestPrice"]} vs R{float(cheapest_fligths["price"]["grandTotal"])}")

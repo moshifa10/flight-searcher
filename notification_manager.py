@@ -6,9 +6,10 @@ import os
 class NotificationManager:
     def __init__(self):
         dotenv.load_dotenv()
+
     def send_email(self, price, departure, arrival, outbound_date, inbound_date):
-        sender_email = "your_email@gmail.com"
-        receiver_email = "receiver_email@gmail.com"
+        sender_email = os.getenv(key="EMAIL")
+        receiver_email = os.getenv(key="EMAIL")
         password = os.getenv(key="PASSWORD_EMAIL")
 
         subject = "✈️ Cheap Flight Alert!"
@@ -19,7 +20,7 @@ class NotificationManager:
 
         Price: ${price}
         Departure date: {outbound_date}
-        Return date: {inbound_date}
+        Land date: {inbound_date}
 
         Book quickly before the price increases!
         """
@@ -34,3 +35,5 @@ class NotificationManager:
             connection.starttls()
             connection.login(sender_email, password)
             connection.send_message(msg)
+
+            print("Successfully sent an email")

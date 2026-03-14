@@ -36,7 +36,6 @@ class FlightSearch:
         return response.json()["access_token"]
     
     def seach_iaticode(self, city):
-
         hearders = {
             "Authorization": f"Bearer {self._token}"
         }

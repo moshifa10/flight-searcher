@@ -24,7 +24,6 @@ class NotificationManager:
 
         Book quickly before the price increases!
         """
-
         msg = EmailMessage()
         msg["Subject"] = subject
         msg["From"] = sender_email

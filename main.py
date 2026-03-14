@@ -19,14 +19,20 @@ updated_sheety_data= []
 #     search = flight_search.FlightSearch()
 #     updated_sheety_data.append(search.put_testing(i))
 
-# pprint.pprint(updated_sheety_data)
+# pprint.pprint(sheety_data)
 
-for i in sheety_data:
-    success = data.put_data(body=i, id=i["id"])
-    # print(success)
 
 search = flight_search.FlightSearch()
-print(search._token)
+
+for i in sheety_data:
+    if (i["iataCode"] == "" or i["iataCode"] == "Testing"):
+        city = i["city"]
+        iata_code = search.seach_iaticode(city=city)
+        i["iataCode"] = iata_code
+        success = data.put_data(body=i, id=i["id"])
+        print(iata_code)
+
+# print(search._token)
 
 
 

@@ -35,13 +35,13 @@ class FlightSearch:
         response.raise_for_status()
         return response.json()["access_token"]
     
-    def seach_iaticode(self, data):
+    def seach_iaticode(self, city):
 
         hearders = {
-            "Authorization": self._token
+            "Authorization": f"Bearer {self._token}"
         }
         params = {
-            "keyword": data["city"],
+            "keyword": city,
             "max": 1,
             "include" : "AIRPORTS"
         }
@@ -49,8 +49,9 @@ class FlightSearch:
         response =  requests.get(url=url, params=params, headers=hearders)
         response.raise_for_status()
         data = response.json()
-        print(data)
-        return response["data"][0]["iataCode"]
+        # print(response.text)
+        # print(data)
+        return data["data"][0]["iataCode"]
     
 
 

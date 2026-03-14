@@ -28,16 +28,17 @@ search = flight_search.FlightSearch()
 
 flight_data = FlightData()
 rate = ExchangeRate()
-rate.convert_zar_to_eur(10)
 
-# for i in sheety_data:
-#     if (i["iataCode"] == "" or i["iataCode"] == "Testing"):
-#         city = i["city"]
-#         iata_code = search.seach_iaticode(city=city)
-#         i["iataCode"] = iata_code
-#         success = data.put_data(body=i, id=i["id"])
-#         print(iata_code)
-e
+
+def iata_code():
+    for i in sheety_data:
+        if (i["iataCode"] == "" or i["iataCode"] == "Testing"):
+            city = i["city"]
+            iata_code = search.seach_iaticode(city=city)
+            i["iataCode"] = iata_code
+            success = data.put_data(body=i, id=i["id"])
+            # print(iata_code)
+
 
 for i in sheety_data:
     print(i)
@@ -53,14 +54,17 @@ for i in sheety_data:
         print(f"No flight data")
         print(f"{i["city"]}: N/A")
         continue
-    validate = flight_data.validate_price(lower_price=i["lowestPrice"], actual_price=cheapest_fligths["price"]["grandTotal"])
+    
+
+    lowest_price = rate.convert_zar_to_eur(int(i["lowestPrice"]))
+    validate = flight_data.validate_price(lower_price=lowest_price, actual_price=cheapest_fligths["price"]["grandTotal"])
 
     if validate:
-        print(f"{i["lowestPrice"]} vs {cheapest_fligths["price"]["grandTotal"]}")
-        print(f"{i["city"]}: {cheapest_fligths["price"]["grandTotal"]}")
+        print(f"R{i["lowestPrice"]} vs R{rate.convert_eur_to_zar(float(cheapest_fligths["price"]["grandTotal"]))}")
+        print(f"{i["city"]}: R{rate.convert_eur_to_zar(float(cheapest_fligths["price"]["grandTotal"]))}")
 
     else:
-        print(f"{i["lowestPrice"]} vs {cheapest_fligths["price"]["grandTotal"]}")
+        print(f"R{i["lowestPrice"]} vs R{float(cheapest_fligths["price"]["grandTotal"])}")
         print(f"No flight data")
         print(f"{i["city"]}: N/A")
 

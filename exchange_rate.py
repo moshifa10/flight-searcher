@@ -30,8 +30,26 @@ class ExchangeRate:
         # print(response.text)
         rate = response.json()["result"]["EUR"]
         total = round(self.multiply(zar, rate), 2)
-        print(total)
-        return total
+        # print(total)
+        return round(total)
+    
+    def convert_eur_to_zar(self, eur):
+        headers = {
+            "X-API-Key": self._api_key
+        }
+
+        params = {
+            "from":EUR,
+            "to": ZAR 
+        }
+        response = requests.get(url=URL, headers=headers, params=params)
+        response.raise_for_status()
+
+        # print(response.text)
+        rate = response.json()["result"]["ZAR"]
+        total = round(self.multiply(eur, rate), 2)
+        # print(total)
+        return round(total)
 
     def multiply(self, base, currency):
         return base * currency

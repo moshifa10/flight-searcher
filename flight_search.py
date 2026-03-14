@@ -49,7 +49,7 @@ class FlightSearch:
         response =  requests.get(url=url, params=params, headers=hearders)
         response.raise_for_status()
         data = response.json()
-        # print(response.text)
+        print(response.text)
         # print(data)
         return data["data"][0]["iataCode"]
     

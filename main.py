@@ -33,12 +33,12 @@ search = flight_search.FlightSearch()
 #         print(iata_code)
 
 cheapest_fligths = search.find_cheapest_flights(
-                        origin_code="JHB",
+                        origin_code="JNB",
                         destination_code="CPT",
                         departure_date="2026-05-20"
                         )
 
-# print(cheapest_fligths)
+print(cheapest_fligths)
 
 
 

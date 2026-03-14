@@ -1,18 +1,21 @@
 import dotenv
 import os
 import requests
+import data_manager 
+import pprint
 
 dotenv.load_dotenv()
 
 
+
 #This file will need to use the DataManager,FlightSearch, FlightData, NotificationManager classes to achieve the program requirements.
 
+# call class and 
+data =  data_manager.DataManager(url=os.getenv(key="END_POINT"))
+sheety_data = data.get_data()
+pprint.pprint(sheety_data)
 
-endpoint_sheet = os.getenv(key="END_POINT")
 
-response = requests.get(url=endpoint_sheet)
-response.raise_for_status()
-print(response.text)
 
 
 

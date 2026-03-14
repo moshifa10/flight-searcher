@@ -30,6 +30,7 @@ class FlightData:
 
         try:
             response.json()["data"][0]
+            # print(response.json()["data"][0])
 
         except IndexError:
             return None

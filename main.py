@@ -41,7 +41,7 @@ def iata_code():
 
 
 for i in sheety_data:
-    print(i)
+    # print(i)
     print(f"Getting flights for {i["city"]} .....")
     cheapest_fligths = flight_data.find_cheapest_flights(
                             origin_code="JNB",
@@ -60,11 +60,11 @@ for i in sheety_data:
     validate = flight_data.validate_price(lower_price=lowest_price, actual_price=cheapest_fligths["price"]["grandTotal"])
 
     if validate:
-        print(f"R{i["lowestPrice"]} vs R{rate.convert_eur_to_zar(float(cheapest_fligths["price"]["grandTotal"]))}")
+        # print(f"R{i["lowestPrice"]} vs R{rate.convert_eur_to_zar(float(cheapest_fligths["price"]["grandTotal"]))}")
         print(f"{i["city"]}: R{rate.convert_eur_to_zar(float(cheapest_fligths["price"]["grandTotal"]))}")
 
     else:
-        print(f"R{i["lowestPrice"]} vs R{float(cheapest_fligths["price"]["grandTotal"])}")
+        # print(f"R{i["lowestPrice"]} vs R{float(cheapest_fligths["price"]["grandTotal"])}")
         print(f"No flight data")
         print(f"{i["city"]}: N/A")
 

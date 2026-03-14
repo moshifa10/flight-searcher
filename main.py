@@ -24,13 +24,23 @@ updated_sheety_data= []
 
 search = flight_search.FlightSearch()
 
-for i in sheety_data:
-    if (i["iataCode"] == "" or i["iataCode"] == "Testing"):
-        city = i["city"]
-        iata_code = search.seach_iaticode(city=city)
-        i["iataCode"] = iata_code
-        success = data.put_data(body=i, id=i["id"])
-        print(iata_code)
+# for i in sheety_data:
+#     if (i["iataCode"] == "" or i["iataCode"] == "Testing"):
+#         city = i["city"]
+#         iata_code = search.seach_iaticode(city=city)
+#         i["iataCode"] = iata_code
+#         success = data.put_data(body=i, id=i["id"])
+#         print(iata_code)
+
+cheapest_fligths = search.find_cheapest_flights(
+                        origin_code="JHB",
+                        destination_code="CPT",
+                        departure_date="2026-05-20"
+                        )
+
+# print(cheapest_fligths)
+
+
 
 # print(search._token)
 

@@ -52,10 +52,3 @@ class FlightSearch:
         print(response.text)
         # print(data)
         return data["data"][0]["iataCode"]
-    
-
-    
-
-
-    
-

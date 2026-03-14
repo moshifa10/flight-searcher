@@ -64,10 +64,3 @@ class FlightData:
         '''
 
         return False if float(actual_price) > float(lower_price) else True
-
-
-
-
-    
-        
-    

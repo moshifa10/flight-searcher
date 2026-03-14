@@ -28,8 +28,3 @@ class DataManager:
         shitty_post = requests.put(url=f"{self.url}/{id}", json=body)
         shitty_post.raise_for_status()
         return shitty_post.text
-
-
-
-
-        

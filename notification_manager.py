@@ -18,7 +18,7 @@ class NotificationManager:
 
         Flight from {departure} to {arrival}
 
-        Price: ${price}
+        Price: R{price}
         Departure date: {outbound_date}
         Land date: {inbound_date}
 

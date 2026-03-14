@@ -64,8 +64,9 @@ for i in sheety_data:
     if validate:
         # print(f"R{i["lowestPrice"]} vs R{rate.convert_eur_to_zar(float(cheapest_fligths["price"]["grandTotal"]))}")
         converted = rate.convert_eur_to_zar(float(cheapest_fligths["price"]["grandTotal"]))
-        inbound_date = cheapest_fligths["itineraries"]["segments"]["departure"]["at"].split("T")[0]
-        outbound_date = cheapest_fligths["itineraries"]["segments"]["arrival"]["at"].split("T")[0]
+        segments= cheapest_fligths["itineraries"][0]["segments"]
+        inbound_date, outbound_date =  " departure at ".join(segments[0]["departure"]["at"].split("T")), " arrive at ".join( segments[0]["arrival"]["at"].split("T"))
+        
         print(f"{i["city"]}: R{converted}")
         notification.send_email(price=converted, departure=STARTING_POINT, arrival=i["iataCode"], inbound_date=inbound_date, outbound_date=outbound_date )
 

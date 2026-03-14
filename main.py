@@ -21,12 +21,12 @@ updated_sheety_data= []
 
 # pprint.pprint(updated_sheety_data)
 
-for i in updated_sheety_data:
+for i in sheety_data:
     success = data.put_data(body=i, id=i["id"])
-    print(success)
+    # print(success)
 
 search = flight_search.FlightSearch()
-print(search._get_new_token())
+print(search._token)
 
 
 

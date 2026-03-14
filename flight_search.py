@@ -30,10 +30,8 @@ class FlightSearch:
         "client_id": self._api_key,
         "client_secret": self._api_secret
         }
-
-
         response = requests.post(url=ENDPOINT, headers=hearder, data=data)
-        print(response.text)
+        # print(response.text)
         response.raise_for_status()
         return response.json()["access_token"]
     
@@ -43,11 +41,16 @@ class FlightSearch:
             "Authorization": self._token
         }
         params = {
-            "keyword" data[]
+            "keyword": data["city"],
+            "max": 1,
+            "include" : "AIRPORTS"
         }
         url = "https://test.api.amadeus.com/v1/reference-data/locations/cities"
-        
-        response =  requests.get(url=url, params=, headers=hearders)
+        response =  requests.get(url=url, params=params, headers=hearders)
+        response.raise_for_status()
+        data = response.json()
+        print(data)
+        return response["data"][0]["iataCode"]
     
 
 

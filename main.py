@@ -3,7 +3,7 @@ import os
 import requests
 import data_manager 
 import pprint
-
+import flight_search
 dotenv.load_dotenv()
 
 
@@ -13,7 +13,15 @@ dotenv.load_dotenv()
 # call class and 
 data =  data_manager.DataManager(url=os.getenv(key="END_POINT"))
 sheety_data = data.get_data()
-pprint.pprint(sheety_data)
+updated_sheety_data= []
+
+for data in sheety_data:
+    search = flight_search.FlightSearch()
+    updated_sheety_data.append(search.put_testing(data))
+
+pprint.pprint(updated_sheety_data)
+
+
 
 
 

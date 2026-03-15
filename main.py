@@ -31,49 +31,55 @@ flight_data = FlightData()
 rate = ExchangeRate()
 notification = NotificationManager()
 
+# retrieve all emails from the google sheet form
+sheety_emails_url = os.getenv(key="SHEETY_USERS")
+response = requests.get(url=sheety_emails_url)
+response.raise_for_status()
+sheety_emails = [i["yourEmail?"] for i in response.json()["users"]]
+# print(sheety_emails)
 
-def iata_code():
-    for i in sheety_data:
-        if (i["iataCode"] == "" or i["iataCode"] == "Testing"):
-            city = i["city"]
-            iata_code = search.seach_iaticode(city=city)
-            i["iataCode"] = iata_code
-            success = data.put_data(body=i, id=i["id"])
-            # print(iata_code)
+# def iata_code():
+#     for i in sheety_data:
+#         if (i["iataCode"] == "" or i["iataCode"] == "Testing"):
+#             city = i["city"]
+#             iata_code = search.seach_iaticode(city=city)
+#             i["iataCode"] = iata_code
+#             success = data.put_data(body=i, id=i["id"])
+#             # print(iata_code)
 
 
-for i in sheety_data:
-    # print(i)
-    print(f"Getting flights for {i["city"]} .....")
-    cheapest_fligths = flight_data.find_cheapest_flights(
-                            origin_code=STARTING_POINT,
-                            destination_code=f"{i["iataCode"]}",
-                            departure_date="2026-05-20"
-                            )
+# for i in sheety_data:
+#     # print(i)
+#     print(f"Getting flights for {i["city"]} .....")
+#     cheapest_fligths = flight_data.find_cheapest_flights(
+#                             origin_code=STARTING_POINT,
+#                             destination_code=f"{i["iataCode"]}",
+#                             departure_date="2026-05-20"
+#                             )
     
-    # validate
-    if cheapest_fligths == None:
-        print(f"No flight data")
-        print(f"{i["city"]}: N/A")
-        continue
+#     # validate
+#     if cheapest_fligths == None:
+#         print(f"No flight data")
+#         print(f"{i["city"]}: N/A")
+#         continue
     
 
-    lowest_price = rate.convert_zar_to_eur(int(i["lowestPrice"]))
-    validate = flight_data.validate_price(lower_price=lowest_price, actual_price=cheapest_fligths["price"]["grandTotal"])
+#     lowest_price = rate.convert_zar_to_eur(int(i["lowestPrice"]))
+#     validate = flight_data.validate_price(lower_price=lowest_price, actual_price=cheapest_fligths["price"]["grandTotal"])
 
-    if validate:
-        # print(f"R{i["lowestPrice"]} vs R{rate.convert_eur_to_zar(float(cheapest_fligths["price"]["grandTotal"]))}")
-        converted = rate.convert_eur_to_zar(float(cheapest_fligths["price"]["grandTotal"]))
-        segments= cheapest_fligths["itineraries"][0]["segments"]
-        inbound_date, outbound_date =  " departure at ".join(segments[0]["departure"]["at"].split("T")), " arrive at ".join( segments[0]["arrival"]["at"].split("T"))
+#     if validate:
+#         # print(f"R{i["lowestPrice"]} vs R{rate.convert_eur_to_zar(float(cheapest_fligths["price"]["grandTotal"]))}")
+#         converted = rate.convert_eur_to_zar(float(cheapest_fligths["price"]["grandTotal"]))
+#         segments= cheapest_fligths["itineraries"][0]["segments"]
+#         inbound_date, outbound_date =  " departure at ".join(segments[0]["departure"]["at"].split("T")), " arrive at ".join( segments[0]["arrival"]["at"].split("T"))
         
-        print(f"{i["city"]}: R{converted}")
-        notification.send_email(price=converted, departure=STARTING_POINT, arrival=i["iataCode"], inbound_date=inbound_date, outbound_date=outbound_date )
+#         print(f"{i["city"]}: R{converted}")
+#         notification.send_email(price=converted, departure=STARTING_POINT, arrival=i["iataCode"], inbound_date=inbound_date, outbound_date=outbound_date )
 
-    else:
-        # print(f"R{i["lowestPrice"]} vs R{float(cheapest_fligths["price"]["grandTotal"])}")
-        print(f"No flight data")
-        print(f"{i["city"]}: N/A")
+#     else:
+#         # print(f"R{i["lowestPrice"]} vs R{float(cheapest_fligths["price"]["grandTotal"])}")
+#         print(f"No flight data")
+#         print(f"{i["city"]}: N/A")
 
 # print(cheapest_fligths)
 

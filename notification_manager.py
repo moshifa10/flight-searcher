@@ -7,9 +7,9 @@ class NotificationManager:
     def __init__(self):
         dotenv.load_dotenv()
 
-    def send_email(self, price, departure, arrival, outbound_date, inbound_date):
+    def send_email(self, price, departure, arrival, outbound_date, inbound_date, email):
         sender_email = os.getenv(key="EMAIL")
-        receiver_email = os.getenv(key="EMAIL")
+        receiver_email = email
         password = os.getenv(key="PASSWORD_EMAIL")
 
         subject = "✈️ Cheap Flight Alert!"

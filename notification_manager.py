@@ -19,8 +19,8 @@ class NotificationManager:
         Flight from {departure} to {arrival}
 
         Price: R{price}
-        Departure date: {outbound_date}
-        Land date: {inbound_date}
+        Departure date: {inbound_date}
+        Land date: {outbound_date}
 
         Book quickly before the price increases!
         """

@@ -75,7 +75,7 @@ for i in sheety_data:
         
         print(f"{i["city"]}: R{converted}")
         for j in sheety_emails:
-            notification.send_email(price=converted, departure=STARTING_POINT, arrival=i["iataCode"], inbound_date=inbound_date, outbound_date=outbound_date, email= j)
+            notification.send_email(price=converted, departure=STARTING_POINT, arrival=i["iataCode"], inbound_date=inbound_date, outbound_date= , email= j)
 
     else:
         # print(f"R{i["lowestPrice"]} vs R{float(cheapest_fligths["price"]["grandTotal"])}")

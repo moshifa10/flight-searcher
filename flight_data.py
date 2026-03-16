@@ -29,13 +29,13 @@ class FlightData:
         # print(response.text)
 
         try:
-            response.json()["data"][0]
+            response.json()['data'][0]
             # print(response.json()["data"][0])
 
         except IndexError:
             return None
         else:
-            return response.json()["data"][0]
+            return response.json()['data'][0]
     
     def find_one_cheap_flight(data: list[dict])-> float:
         '''

@@ -25,9 +25,9 @@ class NotificationManager:
         Book quickly before the price increases!
         """
         msg = EmailMessage()
-        msg["Subject"] = subject
-        msg["From"] = sender_email
-        msg["To"] = receiver_email
+        msg['Subject'] = subject
+        msg['From'] = sender_email
+        msg['To'] = receiver_email
         msg.set_content(body)
 
         with smtplib.SMTP("smtp.gmail.com", 587) as connection:

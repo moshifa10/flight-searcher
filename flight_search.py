@@ -50,4 +50,4 @@ class FlightSearch:
         data = response.json()
         print(response.text)
         # print(data)
-        return data["data"][0]["iataCode"]
+        return data['data'][0]['iataCode']

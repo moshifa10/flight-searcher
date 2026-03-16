@@ -14,7 +14,7 @@ class DataManager:
         response = requests.get(url=self.url)
         response.raise_for_status()
         data = response.json()
-        return data["prices"]
+        return data['prices']
     
     def put_data(self,body: dict, id: int):
 

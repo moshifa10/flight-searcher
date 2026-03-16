@@ -27,7 +27,7 @@ class ExchangeRate:
         response.raise_for_status()
 
         # print(response.text)
-        rate = response.json()["result"]["EUR"]
+        rate = response.json()['result']['EUR']
         total = round(self.multiply(zar, rate), 2)
         # print(total)
         return round(total)
@@ -45,7 +45,7 @@ class ExchangeRate:
         response.raise_for_status()
 
         # print(response.text)
-        rate = response.json()["result"]["ZAR"]
+        rate = response.json()['result']['ZAR']
         total = round(self.multiply(eur, rate), 2)
         # print(total)
         return round(total)
